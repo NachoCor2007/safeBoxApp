@@ -1,48 +1,40 @@
-import Api from "../api/Api";
-import React, {useState, useEffect} from 'react';
-import mqtt from "mqtt";
+import React, {useState} from 'react';
+import { Api } from "../../App.js";
+import './Login.css';
 
 const Login = () => {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [client, setClient] = useState(null);
 
-    useEffect(() => {
-        const mqttClient = mqtt.connect('mqtt://54.144.238.1:1883');
-        mqttClient.on('connect', () => {
-            console.log('Client connected');
-        });
-        mqttClient.on('error', (error) => {
-            console.log('Connection error:', error);
-        });
-        setClient(mqttClient);
-    }, []);
-
-    const message = {
+    const loginInfo = {
         username: username,
         password: password
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(client) {
-            Api.publish('/login', JSON.stringify(message), client);
-            console.log(JSON.stringify(message));
-        } else {
-            console.log('Client is not connected');
-        }
-    }
+        Api.publish('/login', JSON.stringify(loginInfo));
+        Api.subscribe("/user_data")
+            .then(data => {
+                data = JSON.parse(String(data));
+                console.log(data);
+                //const Casa_Id = String(data.house_Id);
+                const Usuario_Id = String(data.userId);
+                //sessionStorage.setItem("Casa_Id", Casa_Id);
+                sessionStorage.setItem("Usuario_Id", Usuario_Id);
+            })
+            .catch(e => console.error(e));
+    };
 
     return (
-        <div>
+        <main className={"loginMain"}>
             <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 <input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
                 <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                 <button type="submit">Login</button>
             </form>
-        </div>
+        </main>
     );
 }
 

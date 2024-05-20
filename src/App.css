@@ -1,5 +1,11 @@
 .App {
+  display: flex;
+  min-height: 100vh;
   text-align: center;
+}
+
+.active {
+  background-color: #0048ff;
 }
 
 .App-logo {

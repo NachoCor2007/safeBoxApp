@@ -5,3 +5,24 @@
 .formMain label {
     display: flex;
 }
+
+.blockUsers, .formButtons, .extremeButtons {
+    padding: 1.4em;
+}
+
+.blockUsers {
+    display: flex;
+    align-items: flex-start;
+}
+.blockUsers h3 {
+    margin: 0;
+}
+
+.individualUser {
+    display: flex;
+}
+
+button {
+    padding: 0.5em;
+    margin: 0.5em;
+}

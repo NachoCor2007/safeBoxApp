@@ -18,10 +18,15 @@ const Login = () => {
             .then(data => {
                 data = JSON.parse(String(data));
                 console.log(data);
-                //const Casa_Id = String(data.house_Id);
-                const Usuario_Id = String(data.userId);
-                //sessionStorage.setItem("Casa_Id", Casa_Id);
-                sessionStorage.setItem("Usuario_Id", Usuario_Id);
+                const casa_Id = String(data.house_Id);
+                const usuario_Id = String(data.userId);
+                if (casa_Id && usuario_Id) {
+                    sessionStorage.setItem("Casa_Id", casa_Id);
+                    sessionStorage.setItem("Usuario_Id", usuario_Id);
+                }
+                else {
+                    throw new Error("Login error");
+                }
             })
             .catch(e => console.error(e));
     };

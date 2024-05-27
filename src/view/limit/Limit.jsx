@@ -14,6 +14,11 @@ function Limit() {
         console.log("SAPEEEEEE");
     };
 
+    const handleDeleteLimit = async () => {
+        setMoneyLimit('');
+        console.log('SAPEEEEEEE');
+    };
+
     useEffect(() => {
         console.log('MoneyLimit updated : ' + moneyLimit);
     }, [moneyLimit]);
@@ -30,14 +35,15 @@ function Limit() {
                         value={moneyLimit}
                         onChange={(e) => setMoneyLimit(e.target.value)}
                     />
-
                 </label>
+
                 <div className={"formButtons"}>
                     <button onClick={cancelForm} >Cancel</button>
                     <button onClick={submitForm} >Change limit</button>
                 </div>
+
                 <div className={"extremeButtons"} >
-                    <button>Delete previous extraction limit</button>
+                    <button onClick={handleDeleteLimit} >Delete previous extraction limit</button>
                 </div>
             </form>
         </main>

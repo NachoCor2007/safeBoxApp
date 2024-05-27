@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+// import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
 
 function Block() {
-    const [usersInHouse, setUsersInHouse] = useState([]);
-    const [usersToBlock, setUsersToBlock] = useState([]);
-    const users = [
+    // const [usersInHouse, setUsersInHouse] = useState([]);
+    const usersInHouse = [
         {
             username: 'Elon Musk'
         },
@@ -16,6 +16,18 @@ function Block() {
             username: 'tu hermana, sape'
         }
     ];
+    const [usersToBlock, setUsersToBlock] = useState([]);
+    // const users = [
+    //     {
+    //         username: 'Elon Musk'
+    //     },
+    //     {
+    //         username: 'Jeff Bezos'
+    //     },
+    //     {
+    //         username: 'tu hermana, sape'
+    //     }
+    // ];
 
     const cancelForm = async e => {
         e.preventDefault();
@@ -37,9 +49,9 @@ function Block() {
         setUsersToBlock([]);
     };
 
-    useEffect(() => {
-        setUsersInHouse(users);
-    }, []);
+    // useEffect(() => {
+    //     setUsersInHouse(users);
+    // }, []);
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);

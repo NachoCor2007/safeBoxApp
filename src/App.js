@@ -7,17 +7,19 @@ import Block from "./view/block/Block";
 import Limit from "./view/limit/Limit";
 import axios from 'axios';
 
+const serverUrl = 'http://54.174.96.250:3000';
+
 export const Api = {
 
     publish: (topic, message) => {
-        axios.post(`http://localhost:3001/publish`, { topic, message })
+        axios.post(`${serverUrl}/publish`, { topic, message })
             .then(r => console.log(r.data))
             .catch(e => console.error(e));
     },
 
     subscribe: (topic) => {
         return new Promise((resolve, reject) => {
-            axios.get(`http://localhost:3001/subscribe/${topic}`)
+            axios.get(`${serverUrl}/subscribe/${topic}`)
                 .then(r => {
                     console.log(`Received data: ${r.data}`);
                     resolve(r.data);

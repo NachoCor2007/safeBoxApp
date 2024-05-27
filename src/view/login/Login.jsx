@@ -18,7 +18,7 @@ const Login = () => {
             .then(data => {
                 data = JSON.parse(String(data));
                 console.log(data);
-                const casa_Id = String(data.house_Id);
+                const casa_Id = String(data.houseId);
                 const usuario_Id = String(data.userId);
                 if (casa_Id && usuario_Id) {
                     sessionStorage.setItem("Casa_Id", casa_Id);

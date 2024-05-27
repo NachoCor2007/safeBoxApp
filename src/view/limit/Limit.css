@@ -4,4 +4,12 @@
 
 .moneyLimit {
     display: flex;
+    align-items: flex-start;
+    padding: 1.4em;
+}
+.moneyLimit h3 {
+    margin: 0;
+}
+.moneyLimit input {
+    padding: 0.4em;
 }

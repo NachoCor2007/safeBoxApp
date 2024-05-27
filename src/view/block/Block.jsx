@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import './Block.css';
 
 function Block() {
-    const [usersToBlock, setUsersToBlock] = useState('');
+    // const [usersInHouse, setUsersInHouse] = useState({});
+    // const [usersToBlock, setUsersToBlock] = useState('');
 
     return (
         <main className={"blockMain"}>

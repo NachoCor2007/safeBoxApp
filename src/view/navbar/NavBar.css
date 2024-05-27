@@ -1,0 +1,19 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    background-color: #d9d9d9;
+    border-right: 0.3em solid #b6b6b6;
+}
+nav .link {
+    border-bottom: 0.2em solid #b6b6b6;
+    transition: background-color 0.2s ease
+}
+nav .link:hover {
+    background-color: #3cacd3;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}

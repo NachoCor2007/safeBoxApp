@@ -1,0 +1,7 @@
+.blockMain {
+    width: 100%;
+}
+
+.formMain label {
+    display: flex;
+}

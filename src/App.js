@@ -7,7 +7,7 @@ import Block from "./view/block/Block";
 import Limit from "./view/limit/Limit";
 import axios from 'axios';
 
-const serverUrl = 'http://54.174.96.250:3000';
+const serverUrl = 'http://54.174.96.250:3001';
 
 export const Api = {
 
@@ -19,7 +19,7 @@ export const Api = {
 
     subscribe: (topic) => {
         return new Promise((resolve, reject) => {
-            axios.get(`${serverUrl}/subscribe/${topic}`)
+            axios.post(`${serverUrl}/subscribe`, { topic })
                 .then(r => {
                     console.log(`Received data: ${r.data}`);
                     resolve(r.data);

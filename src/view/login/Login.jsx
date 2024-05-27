@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         Api.publish('/login', JSON.stringify(loginInfo));
-        Api.subscribe("/user_data")
+        Api.subscribe("user_data")
             .then(data => {
                 data = JSON.parse(String(data));
                 console.log(data);

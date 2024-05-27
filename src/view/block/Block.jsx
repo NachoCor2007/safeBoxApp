@@ -22,17 +22,17 @@ function Block() {
         setUsersToBlock([]);
     };
 
-    const submitForm = async e => {
+    const submitForm = async () => {
         // e.preventDefault();
         console.log("SAPEEEEE");
     };
 
-    const handleBlockAll = async e => {
+    const handleBlockAll = async () => {
         // e.preventDefault();
         setUsersToBlock(usersInHouse);
     };
 
-    const handleUnblockAll = async e => {
+    const handleUnblockAll = async () => {
         // e.preventDefault();
         setUsersToBlock([]);
     };
@@ -53,11 +53,11 @@ function Block() {
         <main className={"blockMain"}>
             <h1>Manage blocked users here.</h1>
             <form className={'formMain'}>
-                <label className={'blockUsers'}>
+                <div className={'blockUsers'}>
                     <h3>Select users to block: </h3>
                     <div className={"usersDiv"}>
                         {usersInHouse.map((item) => (
-                            <div key={item.username} className={"individualUser"} >
+                            <label key={item.username} className={"individualUser"} >
                                 <input type={"checkbox"}
                                        checked={usersToBlock.includes(item)}
                                        onChange={() => {
@@ -67,21 +67,21 @@ function Block() {
                                                setUsersToBlock([...usersToBlock, item]);
                                            }
                                        }}
-                                /><label className={"userLabel"}>{item.username}</label>
-                            </div>
+                                />{item.username}
+                            </label>
                         ))}
                     </div>
-                </label>
+                </div>
 
-                <label className={"formButtons"} >
-                    <button onClick={cancelForm} >Cancel</button>
-                    <button onClick={submitForm} >Apply changes</button>
-                </label>
+                <div className={"formButtons"}>
+                    <button onClick={cancelForm}>Cancel</button>
+                    <button onClick={submitForm}>Apply changes</button>
+                </div>
 
-                <label className={"extremeButtons"} >
-                    <button onClick={handleBlockAll} >Block all users</button>
-                    <button onClick={handleUnblockAll} >Unblock all users</button>
-                </label>
+                <div className={"extremeButtons"}>
+                    <button onClick={handleBlockAll}>Block all users</button>
+                    <button onClick={handleUnblockAll}>Unblock all users</button>
+                </div>
             </form>
         </main>
     );

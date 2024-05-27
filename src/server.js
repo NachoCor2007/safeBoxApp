@@ -27,8 +27,8 @@ app.post('/publish', express.json(), (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/subscribe/:topic', (req, res) => {
-    const { topic } = req.params;
+app.post('/subscribe', (req, res) => {
+    const { topic } = req.body;
     server.subscribe(topic);
     server.on('message', (topic, message) => {
         res.send(message.toString());

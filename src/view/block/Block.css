@@ -2,12 +2,13 @@
     width: 100%;
 }
 
-.formMain label {
+.formMain div {
     display: flex;
+    padding: 1.4em;
 }
 
-.blockUsers, .formButtons, .extremeButtons {
-    padding: 1.4em;
+.formButtons, .extremeButtons {
+    text-align: left;
 }
 
 .blockUsers {
@@ -16,6 +17,13 @@
 }
 .blockUsers h3 {
     margin: 0;
+}
+
+.usersDiv {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .individualUser {

@@ -32,13 +32,13 @@ function Limit() {
                     />
 
                 </label>
-                <label className={"formButtons"}>
+                <div className={"formButtons"}>
                     <button onClick={cancelForm} >Cancel</button>
                     <button onClick={submitForm} >Change limit</button>
-                </label>
-                <label className={"extremeButtons"} >
+                </div>
+                <div className={"extremeButtons"} >
                     <button>Delete previous extraction limit</button>
-                </label>
+                </div>
             </form>
         </main>
     );

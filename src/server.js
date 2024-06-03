@@ -3,7 +3,7 @@
 const express = require('express');
 const mqtt = require('mqtt');
 const cors = require('cors');
-const { handleInfo } = require('./view/login/Login');
+const { handleLoginInfo } = require('/handler.js');
 
 
 const app = express();
@@ -33,6 +33,6 @@ app.post('/publish', express.json(), (req, res) => {
 server.on('message', (topic, message) => {
     if (topic === "/user_data") {
         console.log(message);
-        handleInfo(message);
+        handleLoginInfo(message);
     }
 });

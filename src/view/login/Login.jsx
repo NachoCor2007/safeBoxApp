@@ -18,7 +18,9 @@ const Login = () => {
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
+        console.log(loginInfo.password);
         Api.publish('/login', JSON.stringify(loginInfo));
+
     };
 
     const handleNewUserSubmit = (event) => {}

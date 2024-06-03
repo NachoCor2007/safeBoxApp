@@ -3,7 +3,6 @@
 const express = require('express');
 const mqtt = require('mqtt');
 const cors = require('cors');
-const handleLoginInfo = require('/handler.js');
 
 
 const app = express();

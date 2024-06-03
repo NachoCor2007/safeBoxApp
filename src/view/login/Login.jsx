@@ -16,6 +16,11 @@ const Login = () => {
         Api.publish('/login', JSON.stringify(loginInfo));
     };
 
+    const setParameters = (house, user) => {
+        sessionStorage.setItem("Casa_Id", house);
+        sessionStorage.setItem("Usuario_Id", user);
+    }
+
 
     return (
         <main className={"loginMain"}>

@@ -7,6 +7,8 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const serverUrl = 'http://44.201.159.150:3001';
+
     const loginInfo = {
         username: username,
         password: password
@@ -19,7 +21,7 @@ const Login = () => {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            axios.get('/user_data')
+            axios.get(`${serverUrl}/user_data`)
                 .then(response => {
                     if (response.status === 200) {
                         sessionStorage.setItem("Casa_Id", String(response.data.houseId));

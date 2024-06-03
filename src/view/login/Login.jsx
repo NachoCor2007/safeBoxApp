@@ -20,7 +20,8 @@ const Login = () => {
         event.preventDefault();
         console.log(loginInfo.password);
         Api.publish('/login', JSON.stringify(loginInfo));
-
+        setUsername('');
+        setPassword('');
     };
 
     const handleNewUserSubmit = (event) => {}
@@ -37,6 +38,7 @@ const Login = () => {
         const intervalId = setInterval(() => {
             axios.get(`${serverUrl}/user_data`)
                 .then(response => {
+                    console.log(response.data);
                     if (response.status === 200 && response.data !== "") {
                         sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                         sessionStorage.setItem("Usuario_Id", String(response.data.userId));

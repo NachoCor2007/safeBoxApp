@@ -35,7 +35,7 @@ const Login = () => {
         const intervalId = setInterval(() => {
             axios.get(`${serverUrl}/user_data`)
                 .then(response => {
-                    if (response.status === 200 && response.data) {
+                    if (response.status === 200) {
                         sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                         sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                         setIsAuthenticated(true);

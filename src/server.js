@@ -43,6 +43,7 @@ server.on('message', (topic, message) => {
     if (topic === "/user_data") {
         console.log(String(message));
         userData = JSON.parse(String(message));
+        userData = null;
     }
 });
 

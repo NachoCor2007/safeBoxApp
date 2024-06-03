@@ -15,20 +15,6 @@ export const Api = {
         axios.post(`${serverUrl}/publish`, { topic, message })
             .then(r => console.log(r.data))
             .catch(e => console.error(e));
-    },
-
-    subscribe: (topic) => {
-        return new Promise((resolve, reject) => {
-            axios.post(`${serverUrl}/subscribe`, { topic })
-                .then(r => {
-                    console.log(`Received data: ${r.data}`);
-                    resolve(r.data);
-                })
-                .catch(e => {
-                    console.error(e);
-                    reject(e);
-                });
-        });
     }
 };
 

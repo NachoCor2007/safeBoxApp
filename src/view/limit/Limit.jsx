@@ -31,19 +31,19 @@ function Limit() {
                     <h3>Set extraction limit: </h3>
                     <input
                         type="number"
-                        name="newMoneyLimit"
+                        defaultValue={moneyLimit}
                         value={moneyLimit}
                         onChange={(e) => setMoneyLimit(e.target.value)}
                     />
                 </label>
 
-                <div className={"formButtons"}>
-                    <button onClick={cancelForm} >Cancel</button>
-                    <button onClick={submitForm} >Change limit</button>
+                <div className={"formButtons"} >
+                    <button className={"cancelButton"} onClick={cancelForm} >Cancel</button>
+                    <button className={'submitButton'} onClick={submitForm} >Change limit</button>
                 </div>
 
                 <div className={"extremeButtons"} >
-                    <button onClick={handleDeleteLimit} >Delete previous extraction limit</button>
+                    <button className={"deleteLimitButton"} onClick={handleDeleteLimit} >Delete previous extraction limit</button>
                 </div>
             </form>
         </main>

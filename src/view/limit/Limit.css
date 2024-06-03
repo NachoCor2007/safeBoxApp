@@ -13,3 +13,13 @@
 .moneyLimit input {
     padding: 0.4em;
 }
+
+.cancelButton {
+    background: #ff3838;
+}
+.submitButton {
+    background: #7eff7e;
+}
+.deleteLimitButton {
+    background: #ffbc46;
+}

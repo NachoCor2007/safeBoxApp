@@ -3,11 +3,14 @@
 const express = require('express');
 const mqtt = require('mqtt');
 const cors = require('cors');
+const { handleInfo } = require('./view/login/Login');
+
 
 const app = express();
 app.use(cors());
 
 const server = mqtt.connect('mqtt://172.31.95.100');
+server.subscribe("/user_data")
 
 server.on('connect', () => {
     console.log('Connected to MQTT broker');
@@ -27,10 +30,9 @@ app.post('/publish', express.json(), (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/subscribe', (req, res) => {
-    const { topic } = req.body;
-    server.subscribe(topic);
-    server.on('message', (topic, message) => {
-        res.send(message.toString());
-    });
+server.on('message', (topic, message) => {
+    if (topic === "/user_data") {
+        console.log(message);
+        handleInfo(message);
+    }
 });

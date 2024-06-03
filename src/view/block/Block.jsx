@@ -1,33 +1,22 @@
-// import React, {useEffect, useState} from 'react';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
 
+const users = [
+    {
+        username: 'Elon Musk'
+    },
+    {
+        username: 'Jeff Bezos'
+    },
+    {
+        username: 'tu hermana, sape'
+    }
+];
+
 function Block() {
-    // const [usersInHouse, setUsersInHouse] = useState([]);
-    const usersInHouse = [
-        {
-            username: 'Elon Musk'
-        },
-        {
-            username: 'Jeff Bezos'
-        },
-        {
-            username: 'tu hermana, sape'
-        }
-    ];
+    const [usersInHouse, setUsersInHouse] = useState([]);
     const [usersToBlock, setUsersToBlock] = useState([]);
-    // const users = [
-    //     {
-    //         username: 'Elon Musk'
-    //     },
-    //     {
-    //         username: 'Jeff Bezos'
-    //     },
-    //     {
-    //         username: 'tu hermana, sape'
-    //     }
-    // ];
 
     const cancelForm = async e => {
         e.preventDefault();
@@ -42,16 +31,18 @@ function Block() {
     const handleBlockAll = async () => {
         // e.preventDefault();
         setUsersToBlock(usersInHouse);
+        console.log("SAPEEEEE");
     };
 
     const handleUnblockAll = async () => {
         // e.preventDefault();
         setUsersToBlock([]);
+        console.log("SAPEEEEE");
     };
 
-    // useEffect(() => {
-    //     setUsersInHouse(users);
-    // }, []);
+    useEffect(() => {
+        setUsersInHouse(users);
+    }, []);
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);
@@ -86,13 +77,13 @@ function Block() {
                 </div>
 
                 <div className={"formButtons"}>
-                    <button onClick={cancelForm}>Cancel</button>
-                    <button onClick={submitForm}>Apply changes</button>
+                    <button className={"cancelButton"} onClick={cancelForm}>Cancel</button>
+                    <button className={'submitButton'} onClick={submitForm}>Apply changes</button>
                 </div>
 
                 <div className={"extremeButtons"}>
-                    <button onClick={handleBlockAll}>Block all users</button>
-                    <button onClick={handleUnblockAll}>Unblock all users</button>
+                    <button className={"blockAllButton"} onClick={handleBlockAll}>Block all users</button>
+                    <button className={"unblockAllButton"} onClick={handleUnblockAll}>Unblock all users</button>
                 </div>
             </form>
         </main>

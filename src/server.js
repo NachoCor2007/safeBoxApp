@@ -37,19 +37,19 @@ app.post('/publish', express.json(), (req, res) => {
 
 // server.js
 
-let userData = null;
+let userData = "";
 
 server.on('message', (topic, message) => {
     if (topic === "/user_data") {
         console.log(String(message));
         userData = JSON.parse(String(message));
-        userData = "";
     }
 });
 
 app.get('/user_data', (req, res) => {
-    if (userData) {
+    if (userData !== "") {
         res.json(userData);
+        userData = "";
     } else {
         res.status(404).send('No user data available');
     }

@@ -1,17 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import { Api } from "../../App.js";
 import './Limit.css';
 
 function Limit() {
+    const [money, setMoney] = useState('');
     const [moneyLimit, setMoneyLimit] = useState('');
+    const houseId = sessionStorage.getItem("Casa_Id");
 
-    const cancelForm = async e => {
+    const submitMoney = (e) => {
         e.preventDefault();
-        setMoneyLimit('');
+        Api.publish("/add_money", JSON.stringify({houseId: houseId, amount: money}));
+    }
+
+    const cancelAdd = (e) => {
+        e.preventDefault();
+        setMoney("");
+    }
+
+    const submitLimit = async e => {
+        e.preventDefault();
+        Api.publish("/extraction_limit", JSON.stringify({houseId: houseId, amount: moneyLimit}));
+        console.log("SAPEEEEEE");
     };
 
-    const submitForm = async e => {
+    const cancelLimit = async e => {
         e.preventDefault();
-        console.log("SAPEEEEEE");
+        setMoneyLimit('');
     };
 
     const handleDeleteLimit = async () => {
@@ -19,27 +33,37 @@ function Limit() {
         console.log('SAPEEEEEEE');
     };
 
-    useEffect(() => {
-        console.log('MoneyLimit updated : ' + moneyLimit);
-    }, [moneyLimit]);
-
     return (
         <main className={"limitMain"}>
-            <h1>Manage money limits here.</h1>
+            <h1>Manage your money.</h1>
+
+            <form className={'formMain'}>
+                <label className={'moneyLimit'}>
+                    <h3>Send money to your safe-box: </h3>
+                    <input
+                        type="number"
+                        onChange={(e) => setMoney(e.target.value)}
+                    />
+                </label>
+
+                <div className={"formButtons"}>
+                    <button className={"cancelButton"} onClick={cancelAdd}>Cancel</button>
+                    <button className={'submitButton'} onClick={submitMoney}>Change limit</button>
+                </div>
+            </form>
+
             <form className={'formMain'}>
                 <label className={'moneyLimit'}>
                     <h3>Set extraction limit: </h3>
                     <input
                         type="number"
-                        defaultValue={moneyLimit}
-                        value={moneyLimit}
                         onChange={(e) => setMoneyLimit(e.target.value)}
                     />
                 </label>
 
                 <div className={"formButtons"} >
-                    <button className={"cancelButton"} onClick={cancelForm} >Cancel</button>
-                    <button className={'submitButton'} onClick={submitForm} >Change limit</button>
+                    <button className={"cancelButton"} onClick={cancelLimit} >Cancel</button>
+                    <button className={'submitButton'} onClick={submitLimit} >Change limit</button>
                 </div>
 
                 <div className={"extremeButtons"} >

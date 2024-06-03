@@ -1,3 +1,9 @@
-.loginMain {
+.userViewMain {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+}
+.userViewMain form {
+    display: flex;
+    flex-direction: column;
 }

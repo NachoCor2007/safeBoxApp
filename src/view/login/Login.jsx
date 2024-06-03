@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Api } from "../../App.js";
 import './Login.css';
+import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -16,10 +17,21 @@ const Login = () => {
         Api.publish('/login', JSON.stringify(loginInfo));
     };
 
-    const setParameters = (house, user) => {
-        sessionStorage.setItem("Casa_Id", house);
-        sessionStorage.setItem("Usuario_Id", user);
-    }
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            axios.get('/user_data')
+                .then(response => {
+                    if (response.status === 200) {
+                        sessionStorage.setItem("Casa_Id", String(response.data.houseId));
+                        sessionStorage.setItem("Usuario_Id", String(response.data.userId));
+                        clearInterval(intervalId); // Stop polling once data is received
+                    }
+                })
+                .catch(error => console.error(error));
+        }, 5000); // Poll every 5 seconds
+
+        return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, []);
 
 
     return (

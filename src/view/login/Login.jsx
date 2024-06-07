@@ -21,15 +21,31 @@ const Login = () => {
         setIsAuthenticated(storageIsFilled);
     }
 
-    const handleLoginSubmit = (event) => {
+    const handleLoginSubmit = async (event) => {
         console.log(loginInfo.password);
         Api.publish('/login', JSON.stringify(loginInfo));
+
+        await new Promise(r => setTimeout(r, 1000));
+
+        axios.get(`${serverUrl}/user_data`)
+            .then(response => {
+                console.log(response.data);
+                if (response.status === 200 && response.data !== "") {
+                    sessionStorage.setItem("Casa_Id", String(response.data.houseId));
+                    sessionStorage.setItem("Usuario_Id", String(response.data.userId));
+                    setIsAuthenticated(true);
+                    window.location.reload();
+                }
+            })
+
+        setUsername('');
+        setPassword('');
     };
 
     const handleNewUserSubmit = (event) => {
-        const houseId = sessionStorage.getItem("casa_Id");
+        const houseId = sessionStorage.getItem("Casa_Id");
         const jsonSent = {username: username, password: password, houseId: houseId};
-        Api.publish("register", JSON.stringify(jsonSent));
+        Api.publish("/register", JSON.stringify(jsonSent));
         setUsername('');
         setPassword('');
     }
@@ -46,28 +62,26 @@ const Login = () => {
         window.location.reload();
     }
 
-    useEffect(() => {
-        isLogged();
-        if (isAuthenticated) {return;}
-        const intervalId = setInterval(() => {
-            axios.get(`${serverUrl}/user_data`)
-                .then(response => {
-                    console.log(response.data);
-                    if (response.status === 200 && response.data !== "") {
-                        sessionStorage.setItem("Casa_Id", String(response.data.houseId));
-                        sessionStorage.setItem("Usuario_Id", String(response.data.userId));
-                        setIsAuthenticated(true);
-                        clearInterval(intervalId); // Stop polling once data is received
-                        window.location.reload();
-                        // setUsername('');
-                        // setPassword('');
-                    }
-                })
-                .catch(error => console.error(error));
-        }, 100); // Poll every 5 seconds
-
-        return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, [isAuthenticated]);
+    // useEffect(() => {
+    //     isLogged();
+    //     if (isAuthenticated) {return;}
+    //     const intervalId = setInterval(() => {
+    //         axios.get(`${serverUrl}/user_data`)
+    //             .then(response => {
+    //                 console.log(response.data);
+    //                 if (response.status === 200 && response.data !== "") {
+    //                     sessionStorage.setItem("Casa_Id", String(response.data.houseId));
+    //                     sessionStorage.setItem("Usuario_Id", String(response.data.userId));
+    //                     setIsAuthenticated(true);
+    //                     clearInterval(intervalId); // Stop polling once data is received
+    //                     window.location.reload();
+    //                 }
+    //             })
+    //             .catch(error => console.error(error));
+    //     }, 100); // Poll every 5 seconds
+    //
+    //     return () => clearInterval(intervalId); // Clear interval on component unmount
+    // }, [isAuthenticated]);
 
 
     return (

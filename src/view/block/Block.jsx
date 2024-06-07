@@ -114,3 +114,32 @@ function changeBlockStatusAll(users, blockStatus) {
 }
 
 export default Block;
+
+// function MyComponent() {
+//   const [usersToSend, setUsersToSend] = React.useState(/* initial usersToSend array */);
+//
+//   const handleCheckboxChange = (username) => {
+//     const newUsersToSend = usersToSend.map((item) => {
+//       if (item.username === username) {
+//         return {...item, isBlocked: !item.isBlocked};
+//       } else {
+//         return item;
+//       }
+//     });
+//
+//     setUsersToSend(newUsersToSend);
+//   };
+//
+//   return (
+//     <div>
+//       {usersToSend.map((item) => (
+//         <label key={item.username} className={"individualUser"}>
+//           <input type={"checkbox"}
+//                  checked={item.isBlocked}
+//                  onChange={() => handleCheckboxChange(item.username)}
+//           />{item.username}
+//         </label>
+//       ))}
+//     </div>
+//   );
+// }

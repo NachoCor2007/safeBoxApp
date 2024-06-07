@@ -42,19 +42,13 @@ const Login = () => {
                     window.location.reload();
                 }
             })
-
-        setUsername('');
-        setPassword('');
     };
 
-    const handleNewUserSubmit = (event) => {
-        event.preventDefault();
+    const handleNewUserSubmit = () => {
         const houseId = sessionStorage.getItem("Casa_Id");
         const jsonSent = {...loginInfo, houseId: houseId};
         console.log(jsonSent);
         Api.publish("/register", JSON.stringify(jsonSent));
-        setUsername('');
-        setPassword('');
     }
 
     const cancelUserForm = (event) => {

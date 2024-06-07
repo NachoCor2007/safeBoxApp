@@ -38,11 +38,16 @@ app.post('/publish', express.json(), (req, res) => {
 // server.js
 
 let userData = "";
+let usersList = [];
 
 server.on('message', (topic, message) => {
     if (topic === "/user_data") {
         console.log(String(message));
         userData = JSON.parse(String(message));
+    }
+    else if (topic === "/users_list"){
+        console.log(String(message));
+        usersList = JSON.parse(String(message));
     }
 });
 
@@ -52,5 +57,14 @@ app.get('/user_data', (req, res) => {
         userData = "";
     } else {
         res.status(404).send('No user data available');
+    }
+});
+
+app.get('/users_list', (req, res) => {
+    if (usersList.length !== 0) {
+        res.json(usersList);
+        usersList = [];
+    } else {
+        res.status(404).send('No list of users available');
     }
 });

@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
+import axios from "axios";
 
-const users = [
-    {
-        username: 'Elon Musk'
-    },
-    {
-        username: 'Jeff Bezos'
-    },
-    {
-        username: 'tu hermana, sape'
-    }
-];
+// const users = [
+//     {
+//         username: 'Elon Musk'
+//     },
+//     {
+//         username: 'Jeff Bezos'
+//     },
+//     {
+//         username: 'tu hermana, sape'
+//     }
+// ];
 
 function Block() {
     const [usersInHouse, setUsersInHouse] = useState([]);
     const [usersToBlock, setUsersToBlock] = useState([]);
+    const serverUrl = 'http://3.87.208.75:3001';
 
     const cancelForm = async e => {
         e.preventDefault();
@@ -41,8 +43,13 @@ function Block() {
     };
 
     useEffect(() => {
-        setUsersInHouse(users);
-    }, []);
+        axios.get(`${serverUrl}/users_list`)
+            .then(response => {
+                console.log(response.data);
+                if (response.status === 200 && response.data.length !== 0) {
+                    setUsersInHouse(response.data)
+                }
+            })    }, []);
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);

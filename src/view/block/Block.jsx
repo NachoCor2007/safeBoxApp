@@ -37,7 +37,7 @@ function Block() {
         // TODO: Publish to mqtt
     };
 
-    useEffect(async () => {
+    useEffect(() => {
         async function fetchData() {
             await new Promise(resolve => {
                 Api.publish("/house_users", JSON.stringify({houseId: houseId}));

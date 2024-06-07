@@ -44,20 +44,22 @@ function Block() {
         console.log("SAPEEEEE");
     };
 
-    useEffect(async () => {
-        // Wrap the publish call in a Promise
-        await new Promise(resolve => {
-            Api.publish("/house_users", JSON.stringify({houseId: houseId}));
-            setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
-        });
-        axios.get(`${serverUrl}/users_list`)
-            .then(response => {
-                console.log(response.data);
-                if (response.status === 200 && response.data.length !== 0) {
-                    setUsersInHouse(response.data)
-                }
-            }).catch(e => (console.log(e)));
-    }, []);
+    useEffect(() => {
+        async function fetchData() {
+            await new Promise(resolve => {
+                Api.publish("/house_users", JSON.stringify({houseId: houseId}));
+                setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
+            });
+            axios.get(`${serverUrl}/users_list`)
+                .then(response => {
+                    console.log(response.data);
+                    if (response.status === 200 && response.data.length !== 0) {
+                        setUsersInHouse(response.data)
+                    }
+                }).catch(e => (console.log(e)));
+        }
+        fetchData();
+    }, [houseId]); // Added houseId as a dependency
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);

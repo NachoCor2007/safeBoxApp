@@ -88,7 +88,7 @@ function Block() {
                     <h3>Select users to block: </h3>
                     <div className={"usersDiv"}>
                         {usersInHouse.length !== 0 ?
-                            usersInHouse.forEach((item) => (
+                            usersInHouse.map((item) => (
                                 <label key={item.username} className={"individualUser"} >
                                     <input type={"checkbox"}
                                            checked={usersToBlock.includes(item)}

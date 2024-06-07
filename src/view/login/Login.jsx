@@ -28,7 +28,7 @@ const Login = () => {
 
         // Wrap the publish call in a Promise
         await new Promise(resolve => {
-            Api.publish('/login', JSON.stringify(loginInfo));
+            Api.publish('/login', loginInfo);
             setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
         });
 
@@ -69,14 +69,13 @@ const Login = () => {
         isLogged();
     }, []);
 
-
     return (
         <main className={"userViewMain"}>
             <form onSubmit={isAuthenticated ? handleNewUserSubmit : handleLoginSubmit}>
                 <h1>{isAuthenticated ? "Register user" : "Login"}</h1>
-                <input type="text" placeholder="Username" defaultValue={username}
+                <input type="text" placeholder="Username" value={username}
                        onChange={(e) => setUsername(e.target.value)}/>
-                <input type="password" placeholder="Password" defaultValue={password}
+                <input type="password" placeholder="Password" value={password}
                        onChange={(e) => setPassword(e.target.value)}/>
                 <button onClick={cancelUserForm}>Cancel</button>
                 <button type="submit">Send form</button>

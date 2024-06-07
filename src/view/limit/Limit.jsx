@@ -45,6 +45,7 @@ function Limit() {
                     <h3>Send money to your safe-box: </h3>
                     <input
                         type="number"
+                        value={money}
                         onChange={(e) => setMoney(e.target.value)}
                     />
                 </label>
@@ -60,6 +61,7 @@ function Limit() {
                     <h3>Set extraction limit: </h3>
                     <input
                         type="number"
+                        value={moneyLimit}
                         onChange={(e) => setMoneyLimit(e.target.value)}
                     />
                 </label>

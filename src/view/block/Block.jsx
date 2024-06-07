@@ -68,7 +68,7 @@ function Block() {
                     else {
                         console.log("No se metio adentro XD");
                     }
-                }).catch(e => (console.log(e)));
+                }).catch(e => (console.log(e.response.body)));
         }
         fetchData();
     }, []);

@@ -19,6 +19,13 @@ server.on('connect', () => {
             console.error('Failed to subscribe to /user_data:', err);
         }
     });
+    server.subscribe("/users_list", (err) => {
+        if (!err) {
+            console.log('Successfully subscribed to /users_list');
+        } else {
+            console.error('Failed to subscribe to /users_list:', err);
+        }
+    });
     app.listen(3001, () => {
         console.log('Server is running on port 3001');
     });

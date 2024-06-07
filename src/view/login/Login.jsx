@@ -22,7 +22,6 @@ const Login = () => {
     }, []);
 
     const handleLoginSubmit = (event) => {
-        event.preventDefault();
         console.log(loginInfo.password);
         Api.publish('/login', JSON.stringify(loginInfo));
         setUsername('');
@@ -37,7 +36,9 @@ const Login = () => {
         setPassword('');
     }
 
-    const handleLogout =(event) => {}
+    const handleLogout =(event) => {
+        sessionStorage.clear();
+    }
 
     useEffect(() => {
         const intervalId = setInterval(() => {

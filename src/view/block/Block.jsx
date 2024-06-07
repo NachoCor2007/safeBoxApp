@@ -74,11 +74,13 @@ function Block() {
     }, []);
 
     useEffect(() => {
-        console.log('usersInHouse has been updated: ' + usersInHouse);
+        console.log('usersInHouse has been updated: ');
+        console.log(usersInHouse);
     }, [usersInHouse]);
 
     useEffect(() => {
-        console.log('usersToSend has been updated: ' + usersInHouse);
+        console.log('usersToSend has been updated:');
+        console.log(usersToSend);
     }, [usersToSend]);
 
     return (

@@ -32,21 +32,21 @@ function Block() {
     const submitForm = async (e) => {
         e.preventDefault();
         console.log("Submitting form.");
-        // TODO: Publish to mqtt
+        Api.publish("/blockState", usersToSend);
     };
 
     const handleBlockAll = async (e) => {
         e.preventDefault();
         console.log("Blocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, true));
-        // TODO: Publish to mqtt
+        Api.publish("/blockState", usersToSend);
     };
 
     const handleUnblockAll = async (e) => {
         e.preventDefault();
         console.log("Unblocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, false));
-        // TODO: Publish to mqtt
+        Api.publish("/blockState", usersToSend);
     };
 
     useEffect(() => {

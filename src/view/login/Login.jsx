@@ -24,7 +24,6 @@ const Login = () => {
 const handleLoginSubmit = async (event) => {
     event.preventDefault();
     console.log(loginInfo.password);
-    isLogged();
     if (isAuthenticated) {return;}
 
     // Wrap the publish call in a Promise
@@ -69,26 +68,9 @@ const handleLoginSubmit = async (event) => {
         window.location.reload();
     }
 
-    // useEffect(() => {
-    //     isLogged();
-    //     if (isAuthenticated) {return;}
-    //     const intervalId = setInterval(() => {
-    //         axios.get(`${serverUrl}/user_data`)
-    //             .then(response => {
-    //                 console.log(response.data);
-    //                 if (response.status === 200 && response.data !== "") {
-    //                     sessionStorage.setItem("Casa_Id", String(response.data.houseId));
-    //                     sessionStorage.setItem("Usuario_Id", String(response.data.userId));
-    //                     setIsAuthenticated(true);
-    //                     clearInterval(intervalId); // Stop polling once data is received
-    //                     window.location.reload();
-    //                 }
-    //             })
-    //             .catch(error => console.error(error));
-    //     }, 100); // Poll every 5 seconds
-    //
-    //     return () => clearInterval(intervalId); // Clear interval on component unmount
-    // }, [isAuthenticated]);
+    useEffect(() => {
+        isLogged();
+    }, []);
 
 
     return (

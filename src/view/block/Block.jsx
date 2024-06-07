@@ -54,12 +54,12 @@ function Block() {
                 .then(response => {
                     console.log(response.data);
                     if (response.status === 200 && response.data.length !== 0) {
-                        setUsersInHouse(response.data.toArray())
+                        setUsersInHouse(response.data)
                     }
                 }).catch(e => (console.log(e)));
         }
         fetchData();
-    }, [houseId]); // Added houseId as a dependency
+    }, []);
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);
@@ -76,20 +76,24 @@ function Block() {
                 <div className={'blockUsers'}>
                     <h3>Select users to block: </h3>
                     <div className={"usersDiv"}>
-                        {usersInHouse.map((item) => (
-                            <label key={item.username} className={"individualUser"} >
-                                <input type={"checkbox"}
-                                       checked={usersToBlock.includes(item)}
-                                       onChange={() => {
-                                           if (usersToBlock.includes(item)) {
-                                               setUsersToBlock(usersToBlock.filter(t => t !== item));
-                                           } else {
-                                               setUsersToBlock([...usersToBlock, item]);
-                                           }
-                                       }}
-                                />{item.username}
-                            </label>
-                        ))}
+                        {usersInHouse.length !== 0 ?
+                            usersInHouse.map((item) => (
+                                <label key={item.username} className={"individualUser"} >
+                                    <input type={"checkbox"}
+                                           checked={usersToBlock.includes(item)}
+                                           onChange={() => {
+                                               if (usersToBlock.includes(item)) {
+                                                   setUsersToBlock(usersToBlock.filter(t => t !== item));
+                                               } else {
+                                                   setUsersToBlock([...usersToBlock, item]);
+                                               }
+                                           }}
+                                    />{item.username}
+                                </label>
+                            ))
+                            :
+                            null
+                        }
                     </div>
                 </div>
 

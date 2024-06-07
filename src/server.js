@@ -54,7 +54,7 @@ server.on('message', (topic, message) => {
     }
     else if (topic === "/users_list"){
         console.log(String(message));
-        usersList = JSON.parse(String(message));
+        usersList = JSON.parse(String(message)).toArray();
     }
 });
 

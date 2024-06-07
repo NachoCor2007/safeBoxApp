@@ -18,7 +18,7 @@ import {Api} from "../../App";
 
 function Block() {
     const houseId = sessionStorage.getItem("Casa_Id");
-    const [usersInHouse, setUsersInHouse] = useState([]);
+    const [usersInHouse, setUsersInHouse] = useState([{}]);
     const [usersToBlock, setUsersToBlock] = useState([]);
     const serverUrl = 'http://3.87.208.75:3001';
 
@@ -53,8 +53,14 @@ function Block() {
             axios.get(`${serverUrl}/users_list`)
                 .then(response => {
                     console.log(response.data);
+                    console.log("Status is " + response.status);
+                    console.log("Data length is " + response.data.length);
                     if (response.status === 200 && response.data.length !== 0) {
+                        console.log("Subimos datos a usersInHouse papu");
                         setUsersInHouse(response.data);
+                    }
+                    else {
+                        console.log("No se metio adentro XD");
                     }
                 }).catch(e => (console.log(e)));
         }
@@ -62,7 +68,7 @@ function Block() {
     }, []);
 
     useEffect(() => {
-        console.log("usersInTheHouse has been updated:");
+        console.log("usersInHouse has been updated:");
         console.log(usersInHouse);
     }, [usersInHouse]);
 

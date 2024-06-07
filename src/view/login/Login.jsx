@@ -45,7 +45,8 @@ const Login = () => {
             .catch(e => (console.log(e)));
     };
 
-    const handleNewUserSubmit = () => {
+    const handleNewUserSubmit = (event) => {
+        event.preventDefault();
         const houseId = sessionStorage.getItem("Casa_Id");
         const jsonSent = {...loginInfo, houseId: houseId};
         console.log(jsonSent);

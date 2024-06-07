@@ -16,6 +16,11 @@ const Login = () => {
         password: password
     }
 
+    useEffect(() => {
+        let storageIsFilled = sessionStorage.getItem("Casa_Id") != null && sessionStorage.getItem("Usuario_Id") != null;
+        setIsAuthenticated(storageIsFilled);
+    }, []);
+
     const handleLoginSubmit = (event) => {
         event.preventDefault();
         console.log(loginInfo.password);

@@ -24,8 +24,6 @@ const Login = () => {
     const handleLoginSubmit = (event) => {
         console.log(loginInfo.password);
         Api.publish('/login', JSON.stringify(loginInfo));
-        setUsername('');
-        setPassword('');
     };
 
     const handleNewUserSubmit = (event) => {
@@ -61,6 +59,8 @@ const Login = () => {
                         setIsAuthenticated(true);
                         clearInterval(intervalId); // Stop polling once data is received
                         window.location.reload();
+                        // setUsername('');
+                        // setPassword('');
                     }
                 })
                 .catch(error => console.error(error));

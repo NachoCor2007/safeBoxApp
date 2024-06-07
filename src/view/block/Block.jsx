@@ -18,7 +18,7 @@ import {Api} from "../../App";
 
 function Block() {
     const houseId = sessionStorage.getItem("Casa_Id");
-    const [usersInHouse, setUsersInHouse] = useState([{}]);
+    const [usersInHouse, setUsersInHouse] = useState([]);
     const [usersToBlock, setUsersToBlock] = useState([]);
     const serverUrl = 'http://3.87.208.75:3001';
 

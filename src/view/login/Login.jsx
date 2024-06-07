@@ -50,6 +50,7 @@ const handleLoginSubmit = async (event) => {
     const handleNewUserSubmit = (event) => {
         const houseId = sessionStorage.getItem("Casa_Id");
         const jsonSent = {...loginInfo, houseId: houseId};
+        console.log(jsonSent);
         Api.publish("/register", JSON.stringify(jsonSent));
         setUsername('');
         setPassword('');

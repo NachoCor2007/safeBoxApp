@@ -11,6 +11,18 @@ function Block() {
 
     const serverUrl = 'http://3.83.191.143:3001';
 
+    const handleCheckboxChange = (username) => {
+        const newUsersToSend = usersToSend.map((item) => {
+            if (item.username === username) {
+                return {...item, isBlocked: !item.isBlocked};
+            } else {
+                return item;
+            }
+        });
+
+        setUsersToSend(newUsersToSend);
+    };
+
     const cancelForm = async (e) => {
         e.preventDefault();
         console.log("Cancelling form.");
@@ -81,9 +93,7 @@ function Block() {
                                 <label key={item.username} className={"individualUser"} >
                                     <input type={"checkbox"}
                                            checked={item.isBlocked}
-                                           onChange={() => {
-                                               item = {...item, isBlocked : !item.isBlocked};
-                                           }}
+                                           onChange={() => handleCheckboxChange(item.username)}
                                     />{item.username}
                                 </label>
                             ))

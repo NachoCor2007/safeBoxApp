@@ -37,7 +37,7 @@ const handleLoginSubmit = async (event) => {
                 sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                 sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                 setIsAuthenticated(true);
-                window.location.reload();
+                // window.location.reload();
             }
         })
 

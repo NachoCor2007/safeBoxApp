@@ -22,6 +22,7 @@ const Login = () => {
     }
 
 const handleLoginSubmit = async (event) => {
+    event.preventDefault();
     console.log(loginInfo.password);
 
     // Wrap the publish call in a Promise
@@ -37,7 +38,7 @@ const handleLoginSubmit = async (event) => {
                 sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                 sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                 setIsAuthenticated(true);
-                // window.location.reload();
+                window.location.reload();
             }
         })
 
@@ -61,6 +62,7 @@ const handleLoginSubmit = async (event) => {
 
     const handleLogout =(event) => {
         // event.preventDefault();
+        console.log("Logging out");
         sessionStorage.clear();
         window.location.reload();
     }

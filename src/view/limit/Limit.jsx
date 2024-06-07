@@ -31,8 +31,8 @@ function Limit() {
     };
 
     const handleDeleteLimit = async () => {
+        Api.publish("/extraction_limit", JSON.stringify({houseId: houseId, amount: '0'}));
         setMoneyLimit('');
-        Api.publish("/extraction_limit", JSON.stringify({houseId: houseId, amount: moneyLimit}));
         console.log('SAPEEEEEEE');
     };
 

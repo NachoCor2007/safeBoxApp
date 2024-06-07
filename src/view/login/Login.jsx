@@ -28,7 +28,7 @@ const Login = () => {
 
         // Wrap the publish call in a Promise
         await new Promise(resolve => {
-            Api.publish('/login', loginInfo);
+            Api.publish('/login', JSON.stringify(loginInfo));
             setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
         });
 
@@ -39,6 +39,8 @@ const Login = () => {
                     sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                     sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                     setIsAuthenticated(true);
+                    setUsername('');
+                    setPassword('');
                     window.location.reload();
                 }
             })

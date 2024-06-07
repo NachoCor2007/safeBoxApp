@@ -16,10 +16,10 @@ const Login = () => {
         password: password
     }
 
-    useEffect(() => {
+    const isLogged = () => {
         let storageIsFilled = sessionStorage.getItem("Casa_Id") != null && sessionStorage.getItem("Usuario_Id") != null;
         setIsAuthenticated(storageIsFilled);
-    }, []);
+    }
 
     const handleLoginSubmit = (event) => {
         console.log(loginInfo.password);
@@ -37,10 +37,13 @@ const Login = () => {
     }
 
     const handleLogout =(event) => {
-        sessionStorage.clear();
+        event.preventDefault();
+        sessionStorage.clear()
     }
 
     useEffect(() => {
+        isLogged();
+        if (isAuthenticated) {return;}
         const intervalId = setInterval(() => {
             axios.get(`${serverUrl}/user_data`)
                 .then(response => {

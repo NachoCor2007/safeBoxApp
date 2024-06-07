@@ -28,7 +28,13 @@ const Login = () => {
         setPassword('');
     };
 
-    const handleNewUserSubmit = (event) => {}
+    const handleNewUserSubmit = (event) => {
+        const houseId = sessionStorage.getItem("casa_Id");
+        const jsonSent = {username: username, password: password, houseId: houseId};
+        Api.publish("register", JSON.stringify(jsonSent));
+        setUsername('');
+        setPassword('');
+    }
 
     const cancelUserForm = (event) => {
         event.preventDefault()
@@ -37,8 +43,9 @@ const Login = () => {
     }
 
     const handleLogout =(event) => {
-        event.preventDefault();
+        // event.preventDefault();
         sessionStorage.clear()
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -53,13 +60,14 @@ const Login = () => {
                         sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                         setIsAuthenticated(true);
                         clearInterval(intervalId); // Stop polling once data is received
+                        window.location.reload();
                     }
                 })
                 .catch(error => console.error(error));
-        }, 10); // Poll every 5 seconds
+        }, 100); // Poll every 5 seconds
 
         return () => clearInterval(intervalId); // Clear interval on component unmount
-    }, []);
+    }, [isAuthenticated]);
 
 
     return (

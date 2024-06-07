@@ -51,8 +51,7 @@ const Login = () => {
         Api.publish("/register", JSON.stringify(jsonSent));
     }
 
-    const cancelUserForm = (event) => {
-        event.preventDefault()
+    const cancelUserForm = () => {
         setUsername('');
         setPassword('');
     }

@@ -4,27 +4,16 @@ import './Block.css';
 import axios from "axios";
 import {Api} from "../../App";
 
-// const users = [
-//     {
-//         username: 'Elon Musk'
-//     },
-//     {
-//         username: 'Jeff Bezos'
-//     },
-//     {
-//         username: 'tu hermana, sape'
-//     }
-// ];
-
 function Block() {
     const houseId = sessionStorage.getItem("Casa_Id");
     const [usersInHouse, setUsersInHouse] = useState([]);
-    const [usersToBlock, setUsersToBlock] = useState([]);
-    const serverUrl = 'http://3.87.208.75:3001';
+    const [usersToSend, setUsersToSend] = useState([]);
 
-    const cancelForm = async e => {
+    const serverUrl = 'http://3.83.191.143:3001';
+
+    const cancelForm = async (e) => {
         e.preventDefault();
-        setUsersToBlock([]);
+        setUsersToSend(usersInHouse);
     };
 
     const submitForm = async () => {
@@ -34,13 +23,11 @@ function Block() {
 
     const handleBlockAll = async () => {
         // e.preventDefault();
-        setUsersToBlock(usersInHouse);
         console.log("SAPEEEEE");
     };
 
     const handleUnblockAll = async () => {
         // e.preventDefault();
-        setUsersToBlock([]);
         console.log("SAPEEEEE");
     };
 
@@ -58,6 +45,7 @@ function Block() {
                     if (response.status === 200 && response.data.length !== 0) {
                         console.log("Subimos datos a usersInHouse papu");
                         setUsersInHouse(response.data);
+                        setUsersToSend(response.data);
                     }
                     else {
                         console.log("No se metio adentro XD");
@@ -68,17 +56,8 @@ function Block() {
     }, []);
 
     useEffect(() => {
-        console.log("usersInHouse has been updated:");
-        console.log(usersInHouse);
+        console.log('usersInHouse has been updated: ' + usersInHouse);
     }, [usersInHouse]);
-
-    // useEffect(() => {
-    //     console.log('usersInHouse has been updated: ' + usersInHouse);
-    // }, [usersInHouse]);
-    //
-    // useEffect(() => {
-    //     console.log('usersToBlock has been updated: ' + usersToBlock);
-    // }, [usersToBlock]);
 
     return (
         <main className={"blockMain"}>
@@ -87,18 +66,14 @@ function Block() {
                 <div className={'blockUsers'}>
                     <h3>Select users to block: </h3>
                     <div className={"usersDiv"}>
-                        {usersInHouse.length !== 0 ?
-                            usersInHouse.map((item) => (
+                        {usersToSend.length !== 0 ?
+                            usersToSend.map((item) => (
                                 <label key={item.username} className={"individualUser"} >
                                     <input type={"checkbox"}
-                                           checked={usersToBlock.includes(item)}
-                                           onChange={() => {
-                                               if (usersToBlock.includes(item)) {
-                                                   setUsersToBlock(usersToBlock.filter(t => t !== item));
-                                               } else {
-                                                   setUsersToBlock([...usersToBlock, item]);
-                                               }
-                                           }}
+                                           // checked={item.isBlocked}
+                                           // onChange={() => {
+                                           //     item = {...item, isBlocked : !item.isBlocked};
+                                           // }}
                                     />{item.username}
                                 </label>
                             ))
@@ -119,7 +94,7 @@ function Block() {
                 </div>
             </form>
         </main>
-    );
+    )
 }
 
 export default Block;

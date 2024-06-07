@@ -24,6 +24,8 @@ const Login = () => {
 const handleLoginSubmit = async (event) => {
     event.preventDefault();
     console.log(loginInfo.password);
+    isLogged();
+    if (isAuthenticated) {return;}
 
     // Wrap the publish call in a Promise
     await new Promise(resolve => {

@@ -21,30 +21,33 @@ const Login = () => {
         setIsAuthenticated(storageIsFilled);
     }
 
-    const handleLoginSubmit = async (event) => {
-        console.log(loginInfo.password);
+const handleLoginSubmit = async (event) => {
+    console.log(loginInfo.password);
+
+    // Wrap the publish call in a Promise
+    await new Promise(resolve => {
         Api.publish('/login', JSON.stringify(loginInfo));
+        setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
+    });
 
-        await new Promise(r => setTimeout(r, 1000));
+    axios.get(`${serverUrl}/user_data`)
+        .then(response => {
+            console.log(response.data);
+            if (response.status === 200 && response.data !== "") {
+                sessionStorage.setItem("Casa_Id", String(response.data.houseId));
+                sessionStorage.setItem("Usuario_Id", String(response.data.userId));
+                setIsAuthenticated(true);
+                window.location.reload();
+            }
+        })
 
-        axios.get(`${serverUrl}/user_data`)
-            .then(response => {
-                console.log(response.data);
-                if (response.status === 200 && response.data !== "") {
-                    sessionStorage.setItem("Casa_Id", String(response.data.houseId));
-                    sessionStorage.setItem("Usuario_Id", String(response.data.userId));
-                    setIsAuthenticated(true);
-                    window.location.reload();
-                }
-            })
-
-        setUsername('');
-        setPassword('');
-    };
+    setUsername('');
+    setPassword('');
+};
 
     const handleNewUserSubmit = (event) => {
         const houseId = sessionStorage.getItem("Casa_Id");
-        const jsonSent = {username: username, password: password, houseId: houseId};
+        const jsonSent = {...loginInfo, houseId: houseId};
         Api.publish("/register", JSON.stringify(jsonSent));
         setUsername('');
         setPassword('');
@@ -58,7 +61,7 @@ const Login = () => {
 
     const handleLogout =(event) => {
         // event.preventDefault();
-        sessionStorage.clear()
+        sessionStorage.clear();
         window.location.reload();
     }
 

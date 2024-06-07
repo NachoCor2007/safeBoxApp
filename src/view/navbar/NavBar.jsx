@@ -25,7 +25,7 @@ function NavBar() {
             {isAllowed ?
                 <Link className={`link ${location.pathname === '/limit' ? 'active' : ''}`} to={"/limit"}>
                     <div>
-                        <h2>Limit extractions</h2>
+                        <h2>Handle limit</h2>
                     </div>
                 </Link>
                 :

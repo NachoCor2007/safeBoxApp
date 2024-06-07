@@ -13,29 +13,35 @@ function Block() {
 
     const cancelForm = async (e) => {
         e.preventDefault();
+        console.log("Cancelling form.");
         setUsersToSend(usersInHouse);
     };
 
-    const submitForm = async () => {
-        // e.preventDefault();
-        console.log("SAPEEEEE");
+    const submitForm = async (e) => {
+        e.preventDefault();
+        console.log("Submitting form.");
+        // TODO: Publish to mqtt
     };
 
-    const handleBlockAll = async () => {
-        // e.preventDefault();
-        console.log("SAPEEEEE");
+    const handleBlockAll = async (e) => {
+        e.preventDefault();
+        console.log("Blocking all users, seip.");
+        setUsersToSend(changeBlockStatusAll(usersToSend, true));
+        // TODO: Publish to mqtt
     };
 
-    const handleUnblockAll = async () => {
-        // e.preventDefault();
-        console.log("SAPEEEEE");
+    const handleUnblockAll = async (e) => {
+        e.preventDefault();
+        console.log("Unblocking all users, seip.");
+        setUsersToSend(changeBlockStatusAll(usersToSend, false));
+        // TODO: Publish to mqtt
     };
 
-    useEffect(() => {
+    useEffect(async () => {
         async function fetchData() {
             await new Promise(resolve => {
                 Api.publish("/house_users", JSON.stringify({houseId: houseId}));
-                setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
+                setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
             });
             axios.get(`${serverUrl}/users_list`)
                 .then(response => {
@@ -59,6 +65,10 @@ function Block() {
         console.log('usersInHouse has been updated: ' + usersInHouse);
     }, [usersInHouse]);
 
+    useEffect(() => {
+        console.log('usersToSend has been updated: ' + usersInHouse);
+    }, [usersToSend]);
+
     return (
         <main className={"blockMain"}>
             <h1>Manage blocked users here.</h1>
@@ -70,10 +80,10 @@ function Block() {
                             usersToSend.map((item) => (
                                 <label key={item.username} className={"individualUser"} >
                                     <input type={"checkbox"}
-                                           // checked={item.isBlocked}
-                                           // onChange={() => {
-                                           //     item = {...item, isBlocked : !item.isBlocked};
-                                           // }}
+                                           checked={item.isBlocked}
+                                           onChange={() => {
+                                               item = {...item, isBlocked : !item.isBlocked};
+                                           }}
                                     />{item.username}
                                 </label>
                             ))
@@ -95,6 +105,12 @@ function Block() {
             </form>
         </main>
     )
+}
+
+function changeBlockStatusAll(users, blockStatus) {
+    return users.map((user) => {
+        return {...user, isBlocked: blockStatus};
+    });
 }
 
 export default Block;

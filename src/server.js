@@ -59,11 +59,13 @@ server.on('message', (topic, message) => {
 });
 
 app.get('/user_data', (req, res) => {
-    if (userData !== "") {
-        res.json(userData);
+    if (userData.message === "Welcome") {
+        if (userData.userId !== "") {
+            res.json(userData);
+        }
         userData = "";
     } else {
-        res.status(404).send('No user data available');
+        res.status(404).send(userData.message);
     }
 });
 

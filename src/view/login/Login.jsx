@@ -21,33 +21,34 @@ const Login = () => {
         setIsAuthenticated(storageIsFilled);
     }
 
-const handleLoginSubmit = async (event) => {
-    event.preventDefault();
-    console.log(loginInfo.password);
-    if (isAuthenticated) {return;}
+    const handleLoginSubmit = async (event) => {
+        event.preventDefault();
+        console.log(loginInfo.password);
+        if (isAuthenticated) {return;}
 
-    // Wrap the publish call in a Promise
-    await new Promise(resolve => {
-        Api.publish('/login', JSON.stringify(loginInfo));
-        setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
-    });
+        // Wrap the publish call in a Promise
+        await new Promise(resolve => {
+            Api.publish('/login', JSON.stringify(loginInfo));
+            setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
+        });
 
-    axios.get(`${serverUrl}/user_data`)
-        .then(response => {
-            console.log(response.data);
-            if (response.status === 200 && response.data !== "") {
-                sessionStorage.setItem("Casa_Id", String(response.data.houseId));
-                sessionStorage.setItem("Usuario_Id", String(response.data.userId));
-                setIsAuthenticated(true);
-                window.location.reload();
-            }
-        })
+        axios.get(`${serverUrl}/user_data`)
+            .then(response => {
+                console.log(response.data);
+                if (response.status === 200 && response.data !== "") {
+                    sessionStorage.setItem("Casa_Id", String(response.data.houseId));
+                    sessionStorage.setItem("Usuario_Id", String(response.data.userId));
+                    setIsAuthenticated(true);
+                    window.location.reload();
+                }
+            })
 
-    setUsername('');
-    setPassword('');
-};
+        setUsername('');
+        setPassword('');
+    };
 
     const handleNewUserSubmit = (event) => {
+        event.preventDefault();
         const houseId = sessionStorage.getItem("Casa_Id");
         const jsonSent = {...loginInfo, houseId: houseId};
         console.log(jsonSent);
@@ -62,7 +63,7 @@ const handleLoginSubmit = async (event) => {
         setPassword('');
     }
 
-    const handleLogout =(event) => {
+    const handleLogout =() => {
         // event.preventDefault();
         console.log("Logging out");
         sessionStorage.clear();

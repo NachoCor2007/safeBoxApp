@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
 import axios from "axios";
+import {Api} from "../../App";
 
 // const users = [
 //     {
@@ -16,6 +17,7 @@ import axios from "axios";
 // ];
 
 function Block() {
+    const houseId = sessionStorage.getItem("Casa_Id");
     const [usersInHouse, setUsersInHouse] = useState([]);
     const [usersToBlock, setUsersToBlock] = useState([]);
     const serverUrl = 'http://3.87.208.75:3001';
@@ -42,14 +44,20 @@ function Block() {
         console.log("SAPEEEEE");
     };
 
-    useEffect(() => {
+    useEffect(async () => {
+        // Wrap the publish call in a Promise
+        await new Promise(resolve => {
+            Api.publish("/house_users", JSON.stringify({houseId: houseId}));
+            setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
+        });
         axios.get(`${serverUrl}/users_list`)
             .then(response => {
                 console.log(response.data);
                 if (response.status === 200 && response.data.length !== 0) {
                     setUsersInHouse(response.data)
                 }
-            })    }, []);
+            }).catch(e => (console.log(e)));
+    }, []);
 
     // useEffect(() => {
     //     console.log('usersInHouse has been updated: ' + usersInHouse);

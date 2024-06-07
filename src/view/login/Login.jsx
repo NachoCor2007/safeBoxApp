@@ -79,9 +79,9 @@ const Login = () => {
         <main className={"userViewMain"}>
             <form onSubmit={isAuthenticated ? handleNewUserSubmit : handleLoginSubmit}>
                 <h1>{isAuthenticated ? "Register user" : "Login"}</h1>
-                <input type="text" placeholder="Username"
+                <input type="text" placeholder="Username" defaultValue={username}
                        onChange={(e) => setUsername(e.target.value)}/>
-                <input type="password" placeholder="Password"
+                <input type="password" placeholder="Password" defaultValue={password}
                        onChange={(e) => setPassword(e.target.value)}/>
                 <button onClick={cancelUserForm}>Cancel</button>
                 <button type="submit">Send form</button>

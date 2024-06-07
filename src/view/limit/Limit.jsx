@@ -10,6 +10,7 @@ function Limit() {
     const submitMoney = (e) => {
         e.preventDefault();
         Api.publish("/add_money", JSON.stringify({houseId: houseId, amount: money}));
+        setMoney('');
     }
 
     const cancelAdd = (e) => {
@@ -20,6 +21,7 @@ function Limit() {
     const submitLimit = async e => {
         e.preventDefault();
         Api.publish("/extraction_limit", JSON.stringify({houseId: houseId, amount: moneyLimit}));
+        setMoneyLimit('');
         console.log("SAPEEEEEE");
     };
 
@@ -30,6 +32,7 @@ function Limit() {
 
     const handleDeleteLimit = async () => {
         setMoneyLimit('');
+        Api.publish("/extraction_limit", JSON.stringify({houseId: houseId, amount: moneyLimit}));
         console.log('SAPEEEEEEE');
     };
 

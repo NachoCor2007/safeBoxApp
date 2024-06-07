@@ -7,7 +7,7 @@ import Block from "./view/block/Block";
 import Limit from "./view/limit/Limit";
 import axios from 'axios';
 
-const serverUrl = 'http://3.87.208.75:3001';
+const serverUrl = 'http://3.83.191.143:3001';
 
 export const Api = {
 
@@ -35,3 +35,5 @@ function App() {
 }
 
 export default App;
+
+//Acordarse, las IPs que hay que modificar estan en App.js, server.js, Login.jsx, Block.jsx y config de momo db

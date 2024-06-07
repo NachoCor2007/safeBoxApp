@@ -9,7 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const serverUrl = 'http://44.201.159.150:3001';
+    const serverUrl = 'http://3.87.208.75:3001';
 
     const loginInfo = {
         username: username,
@@ -47,7 +47,7 @@ const Login = () => {
                     }
                 })
                 .catch(error => console.error(error));
-        }, 5000); // Poll every 5 seconds
+        }, 10); // Poll every 5 seconds
 
         return () => clearInterval(intervalId); // Clear interval on component unmount
     }, []);

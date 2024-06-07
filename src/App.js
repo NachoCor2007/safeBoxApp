@@ -7,7 +7,7 @@ import Block from "./view/block/Block";
 import Limit from "./view/limit/Limit";
 import axios from 'axios';
 
-const serverUrl = 'http://44.201.159.150:3001';
+const serverUrl = 'http://3.87.208.75:3001';
 
 export const Api = {
 

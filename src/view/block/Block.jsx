@@ -99,7 +99,7 @@ function Block() {
                     <div className={"usersDiv"}>
                         {usersToSend.length !== 0 ?
                             usersToSend.map((item) => (
-                                <label key={item.username} className={"individualUser"} >
+                                <label key={item.userId} className={"individualUser"} >
                                     <input type={"checkbox"}
                                            checked={item.isBlocked}
                                            onChange={() => handleCheckboxChange(item.username)}

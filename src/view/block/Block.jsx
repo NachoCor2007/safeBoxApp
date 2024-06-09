@@ -49,7 +49,7 @@ function Block() {
     };
 
     useEffect(() => {
-        const fetchData = async () => {
+        async function fetchData() {
             await new Promise(resolve => {
                 Api.publish("/house_users", JSON.stringify({houseId: houseId}));
                 setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
@@ -67,12 +67,9 @@ function Block() {
                     else {
                         console.log("No se metio adentro XD");
                     }
-                }).catch(e => {
-                console.log("Fallo todo a la concha de su madre.");
-                console.log(e);
-            });
+                }).catch(e => (console.log(e)));
         }
-        fetchData;
+        fetchData();
     }, []);
 
     useEffect(() => {

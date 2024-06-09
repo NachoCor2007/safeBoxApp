@@ -30,7 +30,8 @@ function Block() {
     const submitForm = async (e) => {
         e.preventDefault();
         console.log("Submitting form.");
-        Api.publish("/blockState", usersToSend);
+        let toSend = JSON.stringify(usersToSend);
+        Api.publish("/blockState", toSend);
     };
 
     const handleBlockAll = async (e) => {
@@ -54,8 +55,6 @@ function Block() {
                     houseId: houseId
                 }
                 console.log(message);
-                let stringifyMessage = JSON.stringify(message);
-                console.log(stringifyMessage);
                 Api.publish("/house_users", message);
                 setTimeout(resolve, 2000); // Wait for 1 second before resolving the Promise
             });

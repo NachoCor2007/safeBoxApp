@@ -38,21 +38,13 @@ function Block() {
         e.preventDefault();
         console.log("Blocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, true));
-        let toSend = JSON.stringify(usersToSend);
-        await finishPublishing(toSend);
     };
 
     const handleUnblockAll = async (e) => {
         e.preventDefault();
         console.log("Unblocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, false));
-        let toSend = JSON.stringify(usersToSend);
-        await finishPublishing(toSend);
     };
-
-    const finishPublishing = async (toSend) => {
-        Api.publish("/blockState", toSend);
-    }
 
     useEffect(() => {
         async function fetchData() {
@@ -118,14 +110,14 @@ function Block() {
                     </div>
                 </div>
 
-                <div className={"formButtons"}>
-                    <button className={"cancelButton"} onClick={cancelForm}>Cancel</button>
-                    <button className={'submitButton'} onClick={submitForm}>Apply changes</button>
-                </div>
-
                 <div className={"extremeButtons"}>
                     <button className={"blockAllButton"} onClick={handleBlockAll}>Block all users</button>
                     <button className={"unblockAllButton"} onClick={handleUnblockAll}>Unblock all users</button>
+                </div>
+
+                <div className={"formButtons"}>
+                    <button className={"cancelButton"} onClick={cancelForm}>Cancel</button>
+                    <button className={'submitButton'} onClick={submitForm}>Apply changes</button>
                 </div>
             </form>
         </main>

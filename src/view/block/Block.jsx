@@ -51,7 +51,7 @@ function Block() {
     useEffect(() => {
         async function fetchData() {
             await new Promise(resolve => {
-                Api.publish("/house_users", JSON.stringify({houseId: houseId}));
+                Api.publish("/house_users", JSON.stringify({houseId: String(houseId)}));
                 setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
             });
             axios.get(`${serverUrl}/users_list`)

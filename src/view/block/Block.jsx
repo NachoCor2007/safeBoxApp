@@ -9,7 +9,7 @@ function Block() {
     const [usersInHouse, setUsersInHouse] = useState([]);
     const [usersToSend, setUsersToSend] = useState([]);
 
-    const serverUrl = 'http://18.234.162.99:3001';
+    const serverUrl = 'http://3.86.182.105:3001';
 
     const handleCheckboxChange = (username) => {
         const users = usersToSend.map((item) => {

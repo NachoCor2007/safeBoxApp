@@ -51,8 +51,10 @@ function Block() {
     useEffect(() => {
         async function fetchData() {
             await new Promise(resolve => {
-                Api.publish("/house_users", JSON.stringify({houseId: String(houseId)}));
-                setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
+                let ID = String(houseId);
+                let jsonString = `{ "houseId" : "${ID}" }`;
+                Api.publish("/house_users", JSON.stringify(jsonString));
+                setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
             });
             axios.get(`${serverUrl}/users_list`)
                 .then(response => {
@@ -71,6 +73,10 @@ function Block() {
         }
         fetchData();
     }, []);
+
+    useEffect(() => {
+        console.log("Got house id: " + houseId);
+    }, [houseId]);
 
     useEffect(() => {
         console.log('usersInHouse has been updated: ');

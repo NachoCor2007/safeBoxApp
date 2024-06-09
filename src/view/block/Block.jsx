@@ -38,14 +38,16 @@ function Block() {
         e.preventDefault();
         console.log("Blocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, true));
-        Api.publish("/blockState", usersToSend);
+        let toSend = JSON.stringify(usersToSend);
+        Api.publish("/blockState", toSend);
     };
 
     const handleUnblockAll = async (e) => {
         e.preventDefault();
         console.log("Unblocking all users, seip.");
         setUsersToSend(changeBlockStatusAll(usersToSend, false));
-        Api.publish("/blockState", usersToSend);
+        let toSend = JSON.stringify(usersToSend);
+        Api.publish("/blockState", toSend);
     };
 
     useEffect(() => {

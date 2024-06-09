@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-// import { Api } from "../../App.js";
 import './Block.css';
 import axios from "axios";
 import {Api} from "../../App";
@@ -51,9 +50,13 @@ function Block() {
     useEffect(() => {
         async function fetchData() {
             await new Promise(resolve => {
-                let ID = String(houseId);
-                let jsonString = `{ "houseId" : "${ID}" }`;
-                Api.publish("/house_users", JSON.stringify(jsonString));
+                let message = {
+                    houseId: houseId
+                }
+                console.log(message);
+                let stringifyMessage = JSON.stringify(message);
+                console.log(stringifyMessage);
+                Api.publish("/house_users", stringifyMessage);
                 setTimeout(resolve, 1000); // Wait for 1 second before resolving the Promise
             });
             axios.get(`${serverUrl}/users_list`)

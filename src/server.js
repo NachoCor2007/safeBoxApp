@@ -53,7 +53,10 @@ server.on('message', (topic, message) => {
         userData = JSON.parse(String(message));
     }
     else if (topic === "/users_list"){
-        console.log(String(message));
+        console.log("Received this message in topic /users_list: " + message);
+        console.log("Stringified it: " + String(message));
+        console.log("One parse: " + JSON.parse(String(message)));
+        console.log("Two parse: " + JSON.parse(JSON.parse(String(message))));
         usersList = JSON.parse(JSON.parse(String(message)));
     }
 });

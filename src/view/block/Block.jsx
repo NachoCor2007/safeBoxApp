@@ -56,7 +56,7 @@ function Block() {
                 console.log(message);
                 let stringifyMessage = JSON.stringify(message);
                 console.log(stringifyMessage);
-                Api.publish("/house_users", stringifyMessage);
+                Api.publish("/house_users", message);
                 setTimeout(resolve, 2000); // Wait for 1 second before resolving the Promise
             });
             axios.get(`${serverUrl}/users_list`)

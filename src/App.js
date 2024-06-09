@@ -12,6 +12,7 @@ const serverUrl = 'http://3.86.182.105:3001';
 export const Api = {
 
     publish: (topic, message) => {
+        console.log("Received this message: " + message + " from the topic: " + topic);
         axios.post(`${serverUrl}/publish`, { topic, message })
             .then(r => console.log(r.data))
             .catch(e => console.error(e));

@@ -9,7 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const serverUrl = 'http://44.205.246.142:3001';
+    const serverUrl = 'http://18.234.162.99:3001';
 
     const loginInfo = {
         username: username,
@@ -39,8 +39,8 @@ const Login = () => {
                     sessionStorage.setItem("Casa_Id", String(response.data.houseId));
                     sessionStorage.setItem("Usuario_Id", String(response.data.userId));
                     setIsAuthenticated(true);
-                    setUsername('');
-                    setPassword('');
+                    // setUsername('');
+                    // setPassword('');
                     window.location.reload();
                 }
             })

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
 import axios from "axios";
@@ -6,27 +6,25 @@ import {Api} from "../../App";
 
 function Block() {
     const houseId = sessionStorage.getItem("Casa_Id");
-    const [usersInHouse, setUsersInHouse] = useState([]);
-    const [usersToSend, setUsersToSend] = useState([]);
+    let usersInHouse = [];
+    let usersToSend = [];
 
-    const serverUrl = 'http://44.205.246.142:3001';
+    const serverUrl = 'http://18.234.162.99:3001';
 
     const handleCheckboxChange = (username) => {
-        const newUsersToSend = usersToSend.map((item) => {
+        usersToSend = usersToSend.map((item) => {
             if (item.username === username) {
                 return {...item, isBlocked: !item.isBlocked};
             } else {
                 return item;
             }
         });
-
-        setUsersToSend(newUsersToSend);
     };
 
     const cancelForm = async (e) => {
         e.preventDefault();
         console.log("Cancelling form.");
-        setUsersToSend(usersInHouse);
+        usersToSend = usersInHouse;
     };
 
     const submitForm = async (e) => {
@@ -38,19 +36,22 @@ function Block() {
     const handleBlockAll = async (e) => {
         e.preventDefault();
         console.log("Blocking all users, seip.");
-        setUsersToSend(changeBlockStatusAll(usersToSend, true));
+        usersToSend = changeBlockStatusAll(usersToSend, true);
         Api.publish("/blockState", usersToSend);
     };
 
     const handleUnblockAll = async (e) => {
         e.preventDefault();
         console.log("Unblocking all users, seip.");
-        setUsersToSend(changeBlockStatusAll(usersToSend, false));
+        usersToSend = changeBlockStatusAll(usersToSend, false);
         Api.publish("/blockState", usersToSend);
     };
 
     useEffect(() => {
+        console.log('executing for the first time');
         async function fetchData() {
+            console.log('executing for the second time');
+
             await new Promise(resolve => {
                 Api.publish("/house_users", JSON.stringify({houseId: houseId}));
                 setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
@@ -62,8 +63,8 @@ function Block() {
                     console.log("Data length is " + response.data.length);
                     if (response.status === 200 && response.data.length !== 0) {
                         console.log("Subimos datos a usersInHouse papu");
-                        setUsersInHouse(response.data);
-                        setUsersToSend(response.data);
+                        usersInHouse = response.data;
+                        usersToSend = response.data;
                     }
                     else {
                         console.log("No se metio adentro XD");

@@ -71,7 +71,7 @@ function Block() {
                 }).catch(e => (console.log(e.response.body)));
         }
         fetchData();
-    }, [usersInHouse]);
+    }, []);
 
     useEffect(() => {
         console.log('usersInHouse has been updated: ');

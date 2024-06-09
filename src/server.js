@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const server = mqtt.connect('mqtt://44.201.159.180');
+const server = mqtt.connect('mqtt://44.205.246.142');
 
 server.on('connect', () => {
     console.log('Connected to MQTT broker');

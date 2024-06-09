@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 // import { Api } from "../../App.js";
 import './Block.css';
 import axios from "axios";
@@ -6,25 +6,26 @@ import {Api} from "../../App";
 
 function Block() {
     const houseId = sessionStorage.getItem("Casa_Id");
-    let usersInHouse = [];
-    let usersToSend = [];
+    const [usersInHouse, setUsersInHouse] = useState([]);
+    const [usersToSend, setUsersToSend] = useState([]);
 
     const serverUrl = 'http://18.234.162.99:3001';
 
     const handleCheckboxChange = (username) => {
-        usersToSend = usersToSend.map((item) => {
+        const users = usersToSend.map((item) => {
             if (item.username === username) {
                 return {...item, isBlocked: !item.isBlocked};
             } else {
                 return item;
             }
         });
+        setUsersToSend(users);
     };
 
     const cancelForm = async (e) => {
         e.preventDefault();
         console.log("Cancelling form.");
-        usersToSend = usersInHouse;
+        setUsersToSend(usersInHouse);
     };
 
     const submitForm = async (e) => {
@@ -36,22 +37,19 @@ function Block() {
     const handleBlockAll = async (e) => {
         e.preventDefault();
         console.log("Blocking all users, seip.");
-        usersToSend = changeBlockStatusAll(usersToSend, true);
+        setUsersToSend(changeBlockStatusAll(usersToSend, true));
         Api.publish("/blockState", usersToSend);
     };
 
     const handleUnblockAll = async (e) => {
         e.preventDefault();
         console.log("Unblocking all users, seip.");
-        usersToSend = changeBlockStatusAll(usersToSend, false);
+        setUsersToSend(changeBlockStatusAll(usersToSend, false));
         Api.publish("/blockState", usersToSend);
     };
 
     useEffect(() => {
-        console.log('executing for the first time');
-        async function fetchData() {
-            console.log('executing for the second time');
-
+        const fetchData = async () => {
             await new Promise(resolve => {
                 Api.publish("/house_users", JSON.stringify({houseId: houseId}));
                 setTimeout(resolve, 100); // Wait for 1 second before resolving the Promise
@@ -63,15 +61,18 @@ function Block() {
                     console.log("Data length is " + response.data.length);
                     if (response.status === 200 && response.data.length !== 0) {
                         console.log("Subimos datos a usersInHouse papu");
-                        usersInHouse = response.data;
-                        usersToSend = response.data;
+                        setUsersInHouse(response.data);
+                        setUsersToSend(response.data);
                     }
                     else {
                         console.log("No se metio adentro XD");
                     }
-                }).catch(e => (console.log(e.response.body)));
+                }).catch(e => {
+                console.log("Fallo todo a la concha de su madre.");
+                console.log(e);
+            });
         }
-        fetchData();
+        fetchData;
     }, []);
 
     useEffect(() => {
@@ -127,32 +128,3 @@ function changeBlockStatusAll(users, blockStatus) {
 }
 
 export default Block;
-
-// function MyComponent() {
-//   const [usersToSend, setUsersToSend] = React.useState(/* initial usersToSend array */);
-//
-//   const handleCheckboxChange = (username) => {
-//     const newUsersToSend = usersToSend.map((item) => {
-//       if (item.username === username) {
-//         return {...item, isBlocked: !item.isBlocked};
-//       } else {
-//         return item;
-//       }
-//     });
-//
-//     setUsersToSend(newUsersToSend);
-//   };
-//
-//   return (
-//     <div>
-//       {usersToSend.map((item) => (
-//         <label key={item.username} className={"individualUser"}>
-//           <input type={"checkbox"}
-//                  checked={item.isBlocked}
-//                  onChange={() => handleCheckboxChange(item.username)}
-//           />{item.username}
-//         </label>
-//       ))}
-//     </div>
-//   );
-// }

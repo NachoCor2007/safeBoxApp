@@ -9,7 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const serverUrl = 'http://localhost:3001';
+    const serverUrl = 'http://54.147.172.120:3001';
 
     const loginInfo = {
         username: username,
